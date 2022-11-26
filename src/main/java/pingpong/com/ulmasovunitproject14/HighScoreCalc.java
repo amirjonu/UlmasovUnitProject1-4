@@ -8,7 +8,7 @@ public class HighScoreCalc {
     private String top3="0";
     public HighScoreCalc(){
     }
-
+//calculates high score by going through each item in the list using for i loops.
     public String getHighScores(ArrayList<String>list){
         for (int i=0; i<(list.size()); i++){
             if (Integer.parseInt(list.get(i))>=Integer.parseInt(top1)){

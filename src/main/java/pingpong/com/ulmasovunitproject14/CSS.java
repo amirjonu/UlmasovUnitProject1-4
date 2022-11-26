@@ -1,11 +1,12 @@
 package pingpong.com.ulmasovunitproject14;
-
+//All css code that changes view of fx
 public class CSS {
     public CSS(){
 
     }
 
     public String button(){
+        //applies to all buttons
         return "-fx-background-color: \n" +
                 "        #090a0c,\n" +
                 "        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),\n" +
@@ -22,6 +23,7 @@ public class CSS {
     }
 
     public String label(){
+        //applies to all labels
         return "-fx-font-size: 15px;\n" +
                 "    -fx-font-weight: bold;\n" +
                 "    -fx-text-fill: #333333;\n" +

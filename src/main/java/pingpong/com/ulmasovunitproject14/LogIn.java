@@ -9,7 +9,8 @@ public class LogIn {
     static boolean pa;
 
     public static boolean display(String username, String pass, ArrayList<String> list){
-       user=false;
+        //returns is username and pass are valid
+        user=false;
        pa=false;
         for (int i=0; i<(list.size()); i++){
            if (list.get(i).equals(username)){

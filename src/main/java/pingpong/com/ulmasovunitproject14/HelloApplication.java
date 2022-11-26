@@ -9,13 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 import javafx.scene.Parent;
@@ -134,10 +130,11 @@ public class HelloApplication extends Application{
 
     @Override
     public void start(Stage window) throws Exception{
+        //creates new css object for decoration. Also creates stage and sets title
         CSS c= new CSS();
         stage=window;
         stage.setTitle("Ping Pong");
-
+        //Creates scene 1 with start, how to play, log in, and signup buttons
         Label welcome= new Label("Welcome to Pong");
         welcome.setStyle(c.label());
         start= new Button("Start");
@@ -155,8 +152,8 @@ public class HelloApplication extends Application{
         layout.setAlignment(Pos.CENTER);
         login.setOnAction(e-> stage.setScene(log));
         signup.setOnAction(e-> stage.setScene(sign));
-
         scene1= new Scene(layout, w, l);
+        //Creates the page for log in after log in is pressed by user. Event handler
         GridPane gridlog= new GridPane();
         gridlog.setPadding(new Insets(10, 10, 10, 10));
         gridlog.setVgap(8);
@@ -173,19 +170,18 @@ public class HelloApplication extends Application{
         PasswordField pas= new PasswordField();
         pas.setPromptText("Password");
         GridPane.setConstraints(pas, 1, 1);
-
         Button enter= new Button("Log In");
         enter.setStyle(c.button());
         GridPane.setConstraints(enter, 1, 2);
         gridlog.getChildren().addAll(username, name, password, pas, enter);
         log= new Scene(gridlog, w, l);
-
-
+        //calls in login class in order to check if username and password exist and match
         enter.setOnAction(e->{
 
             if (LogIn.display(name.getText(), pas.getText(), listo)){
                 stage.setScene(scene1);
             }else{
+                //creates a alert box that warns if the username or pass is incorrect by using the confirm box class
                 if (ConfirmBox.display("Error", "Wrong UserName or Pass. Continue?")){
                     stage.setScene(log);
                 }else{
@@ -193,7 +189,7 @@ public class HelloApplication extends Application{
                 }
             }
         });
-
+        //Creates page for sign up when user presses button sign up. Uses event handler
         GridPane gridlog2= new GridPane();
         gridlog2.setPadding(new Insets(10, 10, 10, 10));
         gridlog2.setVgap(8);
@@ -210,35 +206,36 @@ public class HelloApplication extends Application{
         PasswordField pas2= new PasswordField();
         pas2.setPromptText("Password");
         GridPane.setConstraints(pas2, 1, 1);
-
         Button enter2= new Button("Sign Up");
         enter2.setStyle(c.button());
         GridPane.setConstraints(enter2, 1, 2);
         gridlog2.getChildren().addAll(username2, name2, password2, pas2, enter2);
         sign= new Scene(gridlog2, w, l);
+        //adds user and pass to array list of accounts
         enter2.setOnAction(e->{
             listo=SignUp.addUser(name2.getText(), pas2.getText(), listo);
             stage.setScene(scene1);
         });
 
-
+        //tells the rules of the game after user presses how to play. there is a back button
         Label rules= new Label("Use the Up and Down arrow keys to move your paddle! You are on the right side! You have only 3 lives!");
         rules.setStyle(c.label());
         back= new Button("Back");
         back.setStyle(c.button());
         back.setOnAction(e-> stage.setScene(scene1));
+
         VBox game= new VBox(20);
         game.getChildren().addAll(rules, back);
         game.setAlignment(Pos.CENTER);
         gameR= new Scene(game, w, l);
-
+        //allows user to choose mode
         easy= new Button("Easy");
         easy.setStyle(c.button());
         medium= new Button("Medium");
         medium.setStyle(c.button());
         hard= new Button("Hard");
         hard.setStyle(c.button());
-
+        //depending on the mode choosen using event handler the mode is set in a variable that changes the game later on
         easy.setOnAction(e -> {
             stage.setScene(Game);
             mode="easy";
@@ -254,23 +251,20 @@ public class HelloApplication extends Application{
             mode="hard";
             counter=1;
         });
+        //scene for choosing mode
         Label chooseMode= new Label("Choose your Mode");
         chooseMode.setStyle(c.label());
-
         HBox layout2= new HBox(50);
         layout2.getChildren().addAll(easy, medium, hard);
         layout2.setAlignment(Pos.CENTER);
-
         HBox topMode= new HBox();
         topMode.getChildren().add(chooseMode);
         topMode.setAlignment(Pos.CENTER);
-
         BorderPane modeChoose= new BorderPane();
         modeChoose.setTop(topMode);
         modeChoose.setCenter(layout2);
-
         scene2= new Scene(modeChoose, w, l);
-
+        //part of the actual game. using setOnKeyPressed it tracks the user arrow input and moves the paddle accordingly. It also changes the speed on the paddle based on the mode. It also stops it from going over the screen.
         Game = new Scene(content());
             Game.setOnKeyPressed(event -> {
                 if (mode.equals("easy")){
@@ -322,7 +316,7 @@ public class HelloApplication extends Application{
             });
 
 
-
+            //last page that displays that the user lost and allows user to restart view score or view high score list.
             Label lose = new Label("You lose. Click score to view score");
             lose.setStyle(c.label());
             restart = new Button("Restart");
@@ -336,11 +330,13 @@ public class HelloApplication extends Application{
             layout3.setAlignment(Pos.CENTER);
             scene3 = new Scene(layout3, w, l);
             HighScoreCalc calc= new HighScoreCalc();
+            //using gethighscores class it calculates high scores based on an array list and shows them to user.
             vs.setOnAction(e->{
                 highScore.add(getScore());
                 ConfirmBox.display("High Score", calc.getHighScores(highScore));
                 counter=0;
             });
+            //restarts game
             restart.setOnAction(e -> {
                 stage.setScene(scene1);
                 score=0;
@@ -353,31 +349,33 @@ public class HelloApplication extends Application{
                 ball.setLayoutX(w / 2);
                 ball.setLayoutY(l / 2);
             });
+            //shows score
             sc.setOnAction(e->{
                 ConfirmBox.display("Score", getScore());
                 counter=0;
             });
+            //stops user from accidently exiting out by warning the user if they want to exit. r
             stage.setOnCloseRequest(e -> {
                 e.consume();
                 closeProgram();
             });
 
-
+        //begins fx with scene1
         stage.setScene(scene1);
         stage.show();
     }
-
+    //reports score
     public String getScore(){
         return ""+score;
     }
-
+    //warns user if they want to exit
     private void closeProgram(){
         Boolean close= ConfirmBox.display("Close", "Are you sure you want to exit?");
         if (close==true){
             stage.close();
         }
     }
-
+    //launches program
     public static void main(String[] args) {
         launch(args);
     }

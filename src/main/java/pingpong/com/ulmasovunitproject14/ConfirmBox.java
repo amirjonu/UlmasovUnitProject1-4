@@ -8,6 +8,7 @@ import javafx.geometry.*;
 
 public class ConfirmBox {
     static boolean answer;
+    //takes in a title and message and creates a new stage with a new scene that portrays a question/statements with a yes(to exit) or no(to stay) button.
     public static boolean display(String title, String message){
         Stage stage= new Stage();
         CSS c= new CSS();
