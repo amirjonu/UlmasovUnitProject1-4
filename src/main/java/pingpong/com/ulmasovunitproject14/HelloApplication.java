@@ -1,5 +1,5 @@
 package pingpong.com.ulmasovunitproject14;
-
+//imported javafx needed elements
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -22,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 
 
 public class HelloApplication extends Application{
+    //creates all needed scenes and buttons and other vars and lists
     Button start, login, signup, howtoplay, back, easy, medium, hard, restart, sc,vs;
     Scene scene1, log, sign, scene2, Game, scene3, gameR;
 
@@ -42,7 +43,7 @@ public class HelloApplication extends Application{
     final int w= 1000;
     final int l= 400;
     int speedx=3, speedy=3, dv=speedx, dy=speedy;
-
+    //creates content/stage needed for the game.
     private Parent content() {
             win = new Pane();
             win.setPrefSize(w, l);
@@ -77,7 +78,7 @@ public class HelloApplication extends Application{
             time.start();
             return win;
     }
-
+    //controls ball movement
     private void gameUpdate(){
         if (counter==1) {
             double x = ball.getLayoutX(), y = ball.getLayoutY();
