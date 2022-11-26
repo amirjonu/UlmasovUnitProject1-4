@@ -10,13 +10,16 @@ public class ConfirmBox {
     static boolean answer;
     public static boolean display(String title, String message){
         Stage stage= new Stage();
-
+        CSS c= new CSS();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle(title);
         Label label= new Label(message);
+        label.setStyle(c.label());
 
         Button yes= new Button("Yes");
+        yes.setStyle(c.button());
         Button no= new Button("No");
+        no.setStyle(c.button());
 
         yes.setOnAction(e->{
             answer=true;
