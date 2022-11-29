@@ -332,8 +332,9 @@ public class HelloApplication extends Application{
             scene3 = new Scene(layout3, w, l);
             HighScoreCalc calc= new HighScoreCalc();
             //using gethighscores class it calculates high scores based on an array list and shows them to user.
+            highScore.add(getScore());
+
             vs.setOnAction(e->{
-                highScore.add(getScore());
                 ConfirmBox.display("High Score", calc.getHighScores(highScore));
                 counter=0;
             });
