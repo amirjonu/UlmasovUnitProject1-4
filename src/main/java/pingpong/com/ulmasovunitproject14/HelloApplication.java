@@ -28,7 +28,7 @@ public class HelloApplication extends Application{
 
     String mode;
 
-    int score=0, lives=3, counter=0;
+    int score=0, lives=3, counter=0, lo=0;
 
     ArrayList<String> listo= new ArrayList<>();
     ArrayList<String> highScore= new ArrayList<>();
@@ -151,8 +151,22 @@ public class HelloApplication extends Application{
         VBox layout= new VBox(20);
         layout.getChildren().addAll(welcome, start, howtoplay, login, signup);
         layout.setAlignment(Pos.CENTER);
-        login.setOnAction(e-> stage.setScene(log));
-        signup.setOnAction(e-> stage.setScene(sign));
+        login.setOnAction(e-> {
+            if (lo==0){
+                stage.setScene(log);
+                lo=1;
+            }else{
+                ConfirmBox.display("Error", "Already Logged In");
+            }
+        });
+        signup.setOnAction(e-> {
+            if (lo==0){
+                stage.setScene(sign);
+                lo=1;
+            }else{
+                ConfirmBox.display("Error", "Already Signed Up!");
+            }
+        });
         scene1= new Scene(layout, w, l);
         //Creates the page for log in after log in is pressed by user. Event handler
         GridPane gridlog= new GridPane();
@@ -186,6 +200,7 @@ public class HelloApplication extends Application{
                 if (ConfirmBox.display("Error", "Wrong UserName or Pass. Continue?")){
                     stage.setScene(log);
                 }else{
+                    lo=0;
                     stage.setScene(scene1);
                 }
             }
@@ -273,14 +288,14 @@ public class HelloApplication extends Application{
                         if (player.getLayoutY() <= 40) {
                             player.setLayoutY(0);
                         } else {
-                            player.setLayoutY(player.getLayoutY() - 60);
+                            player.setLayoutY(player.getLayoutY() - 50);
                         }
                     }
                     if (event.getCode() == KeyCode.DOWN) {
                         if (player.getLayoutY() + 40 >= l - 40) {
                             player.setLayoutY(l - 80);
                         } else {
-                            player.setLayoutY(player.getLayoutY() + 60);
+                            player.setLayoutY(player.getLayoutY() + 50);
                         }
                     }
                 }else if (mode.equals("medium")){
