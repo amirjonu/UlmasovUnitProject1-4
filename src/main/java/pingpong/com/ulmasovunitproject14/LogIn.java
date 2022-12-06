@@ -8,6 +8,14 @@ public class LogIn {
     static boolean user;
     static boolean pa;
 
+    /**
+     * this checks through the list to see if username and password exist and match
+     * @param username represents the username inputted by the user
+     * @param pass represents the password inputted by the user
+     * @param list represents the list of the accounts saved
+     * @return it returns if the username and password match the accounts saved in our list.
+     */
+
     public static boolean display(String username, String pass, ArrayList<String> list){
         //returns is username and pass are valid
         user=false;

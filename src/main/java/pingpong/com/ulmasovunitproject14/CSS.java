@@ -1,10 +1,18 @@
 package pingpong.com.ulmasovunitproject14;
 //All css code that changes view of fx
 public class CSS {
+
+    /**
+     * Constructor with zero parameters
+     */
     public CSS(){
 
     }
 
+    /**
+     *
+     * @return it returns a string of the css that sets layout for all buttons
+     */
     public String button(){
         //applies to all buttons
         return "-fx-background-color: \n" +
@@ -22,6 +30,10 @@ public class CSS {
                 "    -fx-padding: 10 20 10 20;";
     }
 
+    /**
+     *
+     * @return it returns a string of the css that sets layout for all labels
+     */
     public String label(){
         //applies to all labels
         return "-fx-font-size: 15px;\n" +
